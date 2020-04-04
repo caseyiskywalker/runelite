@@ -34,6 +34,8 @@ import net.runelite.api.InventoryID;
 import net.runelite.api.Item;
 import net.runelite.api.ItemContainer;
 
+import static net.runelite.client.util.ItemFinder.Match.*;
+
 public class ItemFinder
 {
 	@Inject
@@ -70,9 +72,11 @@ public class ItemFinder
 			}
 
 			//todo: make this work with multiples of the same item in inputIDs
-			if (match == Match.ALL_ITEMS && !foundIDs.containsAll(inputIDs))
-			{
-				foundItems = Collections.emptyList();
+			if (match != Match.ALL_ITEMS) return foundItems;
+			else {
+				if (!foundIDs.containsAll(inputIDs)) {
+					foundItems = Collections.emptyList();
+				}
 			}
 		}
 
